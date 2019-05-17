@@ -4,6 +4,9 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+var blogRouter = require('./routes/blogs');
 
 const app = express();
 
@@ -54,8 +57,13 @@ app.use(function(req, res, next) {
 });
 
 // Routes
-app.use('/', require('./routes/index.js'));
-app.use('/users', require('./routes/users.js'));
+/*app.use('/', require('./routes/index.js'));
+
+app.use('/users', require('./routes/users.js'));*/
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+app.use('/getBlog', blogRouter);
+
 
 const PORT = process.env.PORT || 5000;
 
