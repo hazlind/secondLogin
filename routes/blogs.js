@@ -12,52 +12,26 @@ router.get('/',forwardAuthenticated,(req,res)=>{
     res.render('blog');
   })
 
-
-// adding a new blog
-router.post('/insert',(req,res)=>{
-    console.log(req.body);
+//add data
+router.post('/', function(req,res){
     db.Blog.create(req.body)
-    
-    .then(res.redirect('/getBlog'))
-    .catch((error)=>res.send(error));
-    /*var item ={
-        content:req.body.content
-    }
-    mongo.connect(url, function(err,db){
-       assert
-    })*/
-
+         .then(res.redirect('/getBlog'))
+         .catch((error)=>res.send(error));
+         console.log('\n\n\ndata added!!!!')
 });
 
-router.get('/getdata', function(req, res, next) {
-    //res.render('blog/index');
-    var resultArray=[];
-    /*mongo.connect(url,function(err,db){
-        if(err)
-        {
-            console.log('error!!!');
-        
-        }
-        else
-        var cursor=db.Blog.find();
-        cursor.forEach(function(doc,err){
-            if(err)
-           { console.log('err');}
-            else
-             resultArray.push(doc);
-        },function(){
-            db.close();
-            res.render('allblog',{items:resultArray})
-        })
-    })*/
-     
-   /*db.Blog.find();
-    res.render('allblog',{item :this.content})*/
-    db.Blog.find(function(err,data){
+
+
+//get data
+router.get('/getdata', function(req,res){
+    console.log('\n\n inside get data');
+    db.Blog.find(function (err,data) {
+        console.log(data);
         if(err){
             console.log(err);
         }else{
-            res.render('allblog' , {data: data})
+            console.log(data);
+            res.render('allblog',{data:"hello"});
         }
     })
 
